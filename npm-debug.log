@@ -1,0 +1,169 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'mocha',
+1 verbose cli   'express',
+1 verbose cli   'sinon',
+1 verbose cli   '--save' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.1
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData mocha
+8 silly fetchPackageMetaData express
+9 silly fetchPackageMetaData sinon
+10 silly fetchNamedPackageData mocha
+11 silly mapToRegistry name mocha
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry data Result {
+14 silly mapToRegistry   raw: 'mocha',
+14 silly mapToRegistry   scope: null,
+14 silly mapToRegistry   escapedName: 'mocha',
+14 silly mapToRegistry   name: 'mocha',
+14 silly mapToRegistry   rawSpec: '',
+14 silly mapToRegistry   spec: 'latest',
+14 silly mapToRegistry   type: 'tag' }
+15 silly mapToRegistry uri https://registry.npmjs.org/mocha
+16 silly fetchNamedPackageData express
+17 silly mapToRegistry name express
+18 silly mapToRegistry using default registry
+19 silly mapToRegistry registry https://registry.npmjs.org/
+20 silly mapToRegistry data Result {
+20 silly mapToRegistry   raw: 'express',
+20 silly mapToRegistry   scope: null,
+20 silly mapToRegistry   escapedName: 'express',
+20 silly mapToRegistry   name: 'express',
+20 silly mapToRegistry   rawSpec: '',
+20 silly mapToRegistry   spec: 'latest',
+20 silly mapToRegistry   type: 'tag' }
+21 silly mapToRegistry uri https://registry.npmjs.org/express
+22 silly fetchNamedPackageData sinon
+23 silly mapToRegistry name sinon
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'sinon',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'sinon',
+26 silly mapToRegistry   name: 'sinon',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/sinon
+28 verbose request uri https://registry.npmjs.org/mocha
+29 verbose request no auth needed
+30 info attempt registry request try #1 at 12:34:09 PM
+31 verbose request id 2916377743ef56c4
+32 http request GET https://registry.npmjs.org/mocha
+33 verbose request uri https://registry.npmjs.org/sinon
+34 verbose request no auth needed
+35 info attempt registry request try #1 at 12:34:09 PM
+36 http request GET https://registry.npmjs.org/sinon
+37 verbose request uri https://registry.npmjs.org/express
+38 verbose request no auth needed
+39 info attempt registry request try #1 at 12:34:09 PM
+40 verbose etag "5a61ff68-93c99"
+41 verbose lastModified Fri, 19 Jan 2018 14:23:36 GMT
+42 http request GET https://registry.npmjs.org/express
+43 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+44 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+45 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+46 info attempt registry request try #2 at 12:34:20 PM
+47 http request GET https://registry.npmjs.org/sinon
+48 info attempt registry request try #2 at 12:34:20 PM
+49 verbose etag "5a61ff68-93c99"
+50 verbose lastModified Fri, 19 Jan 2018 14:23:36 GMT
+51 http request GET https://registry.npmjs.org/express
+52 info attempt registry request try #2 at 12:34:20 PM
+53 http request GET https://registry.npmjs.org/mocha
+54 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+55 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+56 info retry will retry, error on last attempt: Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+57 info attempt registry request try #3 at 12:35:20 PM
+58 http request GET https://registry.npmjs.org/mocha
+59 info attempt registry request try #3 at 12:35:20 PM
+60 verbose etag "5a61ff68-93c99"
+61 verbose lastModified Fri, 19 Jan 2018 14:23:36 GMT
+62 http request GET https://registry.npmjs.org/express
+63 info attempt registry request try #3 at 12:35:20 PM
+64 http request GET https://registry.npmjs.org/sinon
+65 silly get cb [ 304, undefined ]
+66 verbose etag https://registry.npmjs.org/express from cache
+67 verbose get saving express to /Users/christopher.gordon/.npm/registry.npmjs.org/express/.cache.json
+68 verbose correctMkdir /Users/christopher.gordon/.npm correctMkdir not in flight; initializing
+69 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+69 silly fetchPackageMetaData     at ClientRequest.onError (/usr/local/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:176:17)
+69 silly fetchPackageMetaData     at ClientRequest.g (events.js:292:16)
+69 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+69 silly fetchPackageMetaData     at ClientRequest.emit (events.js:188:7)
+69 silly fetchPackageMetaData     at Socket.socketErrorListener (_http_client.js:309:9)
+69 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+69 silly fetchPackageMetaData     at Socket.emit (events.js:188:7)
+69 silly fetchPackageMetaData     at connectErrorNT (net.js:1021:8)
+69 silly fetchPackageMetaData     at _combinedTickCallback (internal/process/next_tick.js:80:11)
+69 silly fetchPackageMetaData     at process._tickCallback (internal/process/next_tick.js:104:9)
+69 silly fetchPackageMetaData  error for mocha { Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+69 silly fetchPackageMetaData     at ClientRequest.onError (/usr/local/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:176:17)
+69 silly fetchPackageMetaData     at ClientRequest.g (events.js:292:16)
+69 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+69 silly fetchPackageMetaData     at ClientRequest.emit (events.js:188:7)
+69 silly fetchPackageMetaData     at Socket.socketErrorListener (_http_client.js:309:9)
+69 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+69 silly fetchPackageMetaData     at Socket.emit (events.js:188:7)
+69 silly fetchPackageMetaData     at connectErrorNT (net.js:1021:8)
+69 silly fetchPackageMetaData     at _combinedTickCallback (internal/process/next_tick.js:80:11)
+69 silly fetchPackageMetaData     at process._tickCallback (internal/process/next_tick.js:104:9) code: 'ECONNRESET' }
+70 silly fetchPackageMetaData Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+70 silly fetchPackageMetaData     at ClientRequest.onError (/usr/local/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:176:17)
+70 silly fetchPackageMetaData     at ClientRequest.g (events.js:292:16)
+70 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+70 silly fetchPackageMetaData     at ClientRequest.emit (events.js:188:7)
+70 silly fetchPackageMetaData     at Socket.socketErrorListener (_http_client.js:309:9)
+70 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+70 silly fetchPackageMetaData     at Socket.emit (events.js:188:7)
+70 silly fetchPackageMetaData     at connectErrorNT (net.js:1021:8)
+70 silly fetchPackageMetaData     at _combinedTickCallback (internal/process/next_tick.js:80:11)
+70 silly fetchPackageMetaData     at process._tickCallback (internal/process/next_tick.js:104:9)
+70 silly fetchPackageMetaData  error for sinon { Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+70 silly fetchPackageMetaData     at ClientRequest.onError (/usr/local/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:176:17)
+70 silly fetchPackageMetaData     at ClientRequest.g (events.js:292:16)
+70 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+70 silly fetchPackageMetaData     at ClientRequest.emit (events.js:188:7)
+70 silly fetchPackageMetaData     at Socket.socketErrorListener (_http_client.js:309:9)
+70 silly fetchPackageMetaData     at emitOne (events.js:96:13)
+70 silly fetchPackageMetaData     at Socket.emit (events.js:188:7)
+70 silly fetchPackageMetaData     at connectErrorNT (net.js:1021:8)
+70 silly fetchPackageMetaData     at _combinedTickCallback (internal/process/next_tick.js:80:11)
+70 silly fetchPackageMetaData     at process._tickCallback (internal/process/next_tick.js:104:9) code: 'ECONNRESET' }
+71 silly rollbackFailedOptional Starting
+72 silly rollbackFailedOptional Finishing
+73 silly runTopLevelLifecycles Finishing
+74 silly install printInstalled
+75 verbose stack Error: tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+75 verbose stack     at ClientRequest.onError (/usr/local/lib/node_modules/npm/node_modules/request/node_modules/tunnel-agent/index.js:176:17)
+75 verbose stack     at ClientRequest.g (events.js:292:16)
+75 verbose stack     at emitOne (events.js:96:13)
+75 verbose stack     at ClientRequest.emit (events.js:188:7)
+75 verbose stack     at Socket.socketErrorListener (_http_client.js:309:9)
+75 verbose stack     at emitOne (events.js:96:13)
+75 verbose stack     at Socket.emit (events.js:188:7)
+75 verbose stack     at connectErrorNT (net.js:1021:8)
+75 verbose stack     at _combinedTickCallback (internal/process/next_tick.js:80:11)
+75 verbose stack     at process._tickCallback (internal/process/next_tick.js:104:9)
+76 verbose cwd /Users/christopher.gordon/Dev/my-restful-api
+77 error Darwin 16.7.0
+78 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "mocha" "express" "sinon" "--save"
+79 error node v6.11.1
+80 error npm  v3.10.10
+81 error code ECONNRESET
+82 error network tunneling socket could not be established, cause=getaddrinfo ENOTFOUND a-proxy-p.bc.jsplc.net a-proxy-p.bc.jsplc.net:8080
+83 error network This is most likely not a problem with npm itself
+83 error network and is related to network connectivity.
+83 error network In most cases you are behind a proxy or have bad network settings.
+83 error network
+83 error network If you are behind a proxy, please make sure that the
+83 error network 'proxy' config is set properly.  See: 'npm help config'
+84 verbose exit [ 1, true ]
