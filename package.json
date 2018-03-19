@@ -1,0 +1,19 @@
+{
+  "name": "my-restful-api",
+  "version": "1.0.0",
+  "description": "simple restful api",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christopher-gordon98/my-restful-api.git"
+  },
+  "author": "christopher gordon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christopher-gordon98/my-restful-api/issues"
+  },
+  "homepage": "https://github.com/christopher-gordon98/my-restful-api#readme"
+}
