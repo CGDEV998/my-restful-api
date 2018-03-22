@@ -4,17 +4,10 @@ var port = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var apiRoutes = express.Router();
 
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
-
-
-apiRoutes.get('/', (req, res) => {
-    res.render('pages/homepage');
-})
 
 apiRoutes.get('/user', (req, res) => {
     res.json({message: "successful get - user"});
@@ -47,7 +40,7 @@ apiRoutes.patch('/user/:id', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.render('pages/homepage');
+    res.json({message: "welcome to Cayenne API"});
 });
 
 app.use('/api', apiRoutes);
