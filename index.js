@@ -4,7 +4,8 @@ var port = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 var apiRoutes = express.Router();
 
-
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -12,7 +13,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 
 apiRoutes.get('/', (req, res) => {
-    res.send("api is a success");
+    res.render('pages/homepage');
 })
 
 apiRoutes.get('/user', (req, res) => {
@@ -46,7 +47,7 @@ apiRoutes.patch('/user/:id', (req, res) => {
 });
 
 app.get('/', (req, res) => {
-    res.json({message: "successful get"});
+    res.render('pages/homepage');
 });
 
 app.use('/api', apiRoutes);
