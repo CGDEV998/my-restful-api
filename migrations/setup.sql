@@ -7,13 +7,13 @@ GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO merchandiser;
 CREATE SEQUENCE global_id_seq;
 
 CREATE TABLE customer (
-    id INTEGER NOT NULL DEFAULT nextval('global_id_seq'::regclass) CONSTRAINT customer_id_pk PRIMARY KEY,
+    id INTEGER NOT NULL UNIQUE DEFAULT nextval('global_id_seq'::regclass) CONSTRAINT customer_id_pk PRIMARY KEY,
     first_name CHARACTER VARYING(256) NOT NULL,
     last_name CHARACTER VARYING(256) NOT NULL,
     email CHARACTER VARYING(50) NOT NULL UNIQUE,
-    create_date DATE DEFAULT ('now'::text)::DATE NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     activebool BOOLEAN DEFAULT FALSE NOT NULL,
-    phone_number CHARACTER VARYING(13) NOT NULL
+    phone_number CHARACTER VARYING(13) NOT NULL UNIQUE
 );
 
 CREATE TABLE products (
