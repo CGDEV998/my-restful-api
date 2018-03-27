@@ -17,50 +17,50 @@ describe('Get /api/non-existant url', () => {
     });
 });
 
-describe('Get /api/user', () => {
-    it('Should return 200 - /api/user', (done) => {
+describe('Get /api/customer', () => {
+    it('Should return 200 - /api/customer', (done) => {
         supertest(app)
-            .get('/api/user')
+            .get('/api/customer')
             .expect(200, done);
     });
-    it('Should return 200 - /api/user/id', (done) => {
+    it('Should return 200 - /api/customer/id', (done) => {
         supertest(app)
-            .get('/api/user/id01')
-            .expect(200, done);
-    });
-});
-
-describe('Post /api/user', () => {
-    it('Should return 200 status code (OK)', (done) => {
-        supertest(app)
-            .post('/api/user')
-            .send({username : "jimbo123"})
+            .get('/api/customer/id01')
             .expect(200, done);
     });
 });
 
-describe('Put /api/user/id', () => {
+describe('Post /api/customer', () => {
     it('Should return 200 status code (OK)', (done) => {
         supertest(app)
-            .put('/api/user/id01')
-            .send({username : "monkeyman1"})
+            .post('/api/customer')
+            .send({customername : "jimbo123"})
             .expect(200, done);
     });
 });
 
-describe('Delete /api/user/id', () => {
+describe('Put /api/customer/id', () => {
     it('Should return 200 status code (OK)', (done) => {
         supertest(app)
-            .delete('/api/user/id01')
+            .put('/api/customer/id01')
+            .send({customername : "monkeyman1"})
             .expect(200, done);
     });
 });
 
-describe('Patch /api/user/id', () => {
+describe('Delete /api/customer/id', () => {
     it('Should return 200 status code (OK)', (done) => {
         supertest(app)
-            .patch('/api/user/id01')
-            .send({username: "newusername"})
+            .delete('/api/customer/id01')
+            .expect(200, done);
+    });
+});
+
+describe('Patch /api/customer/id', () => {
+    it('Should return 200 status code (OK)', (done) => {
+        supertest(app)
+            .patch('/api/customer/id01')
+            .send({customername: "newcustomername"})
             .expect(200, done);
     });
 });

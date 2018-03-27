@@ -4,7 +4,7 @@
   "description": "simple restful api",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "export PORT=3002 && mocha"
   },
   "repository": {
     "type": "git",

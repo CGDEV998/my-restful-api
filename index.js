@@ -9,33 +9,37 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
 })); 
 
-apiRoutes.get('/user', (req, res) => {
-    res.json({message: "successful get - user"});
+apiRoutes.get('/', (req, res) => {
+    res.json({message: "Welcome BillBoard"});
 });
 
-apiRoutes.get('/user/:id', (req, res) => {
-    res.json({message: "successful get - user/id"});
+apiRoutes.get('/customer', (req, res) => {
+    res.json({message: "successful get - customer"});
 });
 
-apiRoutes.post('/user', function(req, res){
+apiRoutes.get('/customer/:id', (req, res) => {
+    res.json({message: "successful get - customer/id"});
+});
+
+apiRoutes.post('/customer', function(req, res){
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
-        username: req.body.username,
+        customername: req.body.customername,
     }));
 });
 
-apiRoutes.put('/user/:id', (req, res) => {
+apiRoutes.put('/customer/:id', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
-        username: req.body.username,
+        customername: req.body.customername,
     }));
 });
 
-apiRoutes.delete('/user/:id', (req, res) => {
+apiRoutes.delete('/customer/:id', (req, res) => {
     res.json({message: "successful delete"});
 });
 
-apiRoutes.patch('/user/:id', (req, res) => {
+apiRoutes.patch('/customer/:id', (req, res) => {
     res.json({message: "successful patch"});
 });
 
