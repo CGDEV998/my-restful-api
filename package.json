@@ -2,9 +2,9 @@
   "name": "my-restful-api",
   "version": "1.0.0",
   "description": "simple restful api",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "export PORT=3002 && mocha"
+    "test": "export PORT=3007 && mocha"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,15 @@
   "homepage": "https://github.com/christopher-gordon98/my-restful-api#readme",
   "dependencies": {
     "express": "4.16.3",
-    "mocha": "^5.0.4",
-    "sinon": "4.4.6",
-    "supertest": "^3.0.0",
-    "ejs": "^2.5.6",
-    "pg": "^7.4.0"
+    "knex": "^0.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "ejs": "^2.5.8",
+    "gulp": "^3.9.1",
+    "mocha": "^5.1.0",
+    "morgan": "^1.9.0",
+    "pg": "^4.5.7"
   }
 }

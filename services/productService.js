@@ -1,39 +1,54 @@
-'use strict';
+'use-strict';
 
 const express = require('express');
-const {
-  Client
-} = require('pg');
+const { Client } = require('pg');
 const router = express.Router();
+var database;
+
+if(process.env.NODE_ENV === 'test') {
+  // Test environemnt database
+  database = 'cayenne_test';
+} else {
+  //Development & production environemnt database
+  database = 'cayenne';
+}
 
 exports.create = (product, cb) => {
   const response = [];
   const client = new Client({
-    connectionString: process.env.HEROKU_POSTGRESQL_PINK_URL
+    user: 'christopher.gordon',
+    host: 'localhost',
+    database: database,
+    password: '',
+    port: 5432,
   });
 
   client.connect();
 
   const query = {
-    text: 'INSERT INTO products(name, description, price) VALUES($1, $2, $3) returning id',
+    text: 'INSERT INTO products(name, description, price) VALUES($1, $2, $3) returning product_id',
     values: [product.name, product.description, product.price]
   };
 
   client.query(query, (err, res) => {
     if (err) {
       console.log(err.stack);
-      cb(`Failed to add product: ${ product.name}`, null);
+      cb(`Failed to add product: ${product.name}`, null);
     } else {
-      cb(null, 'successfully added product', res.rows[0].id);
-    };
+      cb(null, 'successfully added product', res.rows[0].product_id);
+    }
   });
 };
 
 exports.fetchAll = (cb) => {
   const client = new Client({
-    connectionString: process.env.HEROKU_POSTGRESQL_PINK_URL
+    user: 'christopher.gordon',
+    host: 'localhost',
+    database: database,
+    password: '',
+    port: 5432,
   });
-
+  
   client.connect();
 
   client.query('SELECT * FROM products', (err, res) => {
@@ -46,27 +61,31 @@ exports.fetchAll = (cb) => {
   });
 };
 
-exports.fetch = (search, cb) => {
+exports.fetch = (searchTerm, cb) => {
   const client = new Client({
-    connectionString: process.env.HEROKU_POSTGRESQL_PINK_URL
+    user: 'christopher.gordon',
+    host: 'localhost',
+    database: database,
+    password: '',
+    port: 5432,
   });
 
   client.connect();
 
   var query;
 
-  if (search.id) {
-    query = {
-      text: 'SELECT * FROM products WHERE id=$1',
-      values: [search.id]
-    };
-  } else if (search.name) {
+  if (isNaN(searchTerm)) {
     query = {
       text: 'SELECT * FROM products WHERE name=$1',
-      values: [search.name]
+      values: [searchTerm]
+    };
+  } else if (!isNaN(searchTerm)) {
+    query = {
+      text: 'SELECT * FROM products WHERE product_id=$1',
+      values: [searchTerm]
     };
   } else {
-    cb('Please provide a product ID or name to fetch', null);
+    cb('Please provide a valid product Id or name to fetch', null);
   }
 
   client.query(query, (err, res) => {
@@ -74,29 +93,29 @@ exports.fetch = (search, cb) => {
       console.log(err.stack);
       cb('Something went wrong, please try again', null);
     } else if (res.rows.length === 0) {
-      cb('Product does not exist', null);
+      cb('Could not find that product, please ensure you entered the correct id or name', null);
     } else {
       cb(null, res.rows);
     }
   });
 };
 
-exports.update = (product, cb) => {
+exports.update = (productId, product, cb) => {
   const client = new Client({
-    connectionString: process.env.HEROKU_POSTGRESQL_PINK_URL
+    connectionString: connectionString
   });
 
   client.connect();
 
   const query = {
     text: 'UPDATE products SET name=$2, description=$3, price=$4 WHERE id=$1',
-    values: [product.id, product.name, product.description, product.price]
+    values: [productId, product.name, product.description, product.price]
   };
 
   client.query(query, (err) => {
     if (err) {
       console.log(err.stack);
-      cb(`Failed To Update Product ${ product.name }`, null);
+      cb(`Failed To Update Product ${product.name}`, null);
     } else {
       cb(null, 'Product successfully updated');
     }
@@ -105,7 +124,7 @@ exports.update = (product, cb) => {
 
 exports.remove = (product, cb) => {
   const client = new Client({
-    connectionString: process.env.HEROKU_POSTGRESQL_PINK_URL
+    connectionString: connectionString
   });
 
   client.connect();
@@ -117,8 +136,8 @@ exports.remove = (product, cb) => {
 
   client.query(query, (err) => {
     if (err) {
-      console.log(err).stack;
-      cb(`Failed to delete product (id: ${ product.id }), please make sure you're using the correct ID`, null);
+      console.log(err.stack);
+      cb(`Failed to delete product (id: ${product.id}), please make sure you're using the correct ID`, null);
     } else {
       cb(null, 'Successfully deleted product');
     }
