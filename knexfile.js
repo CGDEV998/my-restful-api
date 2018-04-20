@@ -3,7 +3,7 @@
 module.exports = {
   test: {
     client: 'pg',
-    connection: 'postgres://localhost/cayenne_test',
+    connection: process.env.TEST_DATABASE_URL,
     migrations: {
       directory: __dirname + '/db/migrations'
     },
@@ -18,7 +18,7 @@ module.exports = {
   development: {
     client: 'pg',
     debug: true,
-    connection: 'postgres://localhost/cayenne',
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: __dirname + '/db/migrations'
     },
@@ -32,7 +32,7 @@ module.exports = {
   },
   common: {
     client: 'pg',
-    connection: 'postgres://localhost/cayenne',
+    connection: process.env.DATABASE_URL,
     migrations: {
       directory: __dirname + '/db/migrations'
     },

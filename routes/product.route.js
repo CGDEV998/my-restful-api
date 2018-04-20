@@ -9,8 +9,6 @@ productRoutes.get('/', controller.product.fetchAll);
 
 productRoutes.get('/:searchTerm', controller.product.fetch);
 
-// productRoutes.get('/id/:id', controller.product.fetch);
-
 productRoutes.patch('/:id', controller.product.update);
 
 productRoutes.delete('/:id', controller.product.remove);

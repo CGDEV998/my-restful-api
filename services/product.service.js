@@ -3,25 +3,19 @@
 const express = require('express');
 const { Client } = require('pg');
 const router = express.Router();
-var database;
+var db;
 
 if(process.env.NODE_ENV === 'test') {
   // Test environemnt database
-  database = 'cayenne_test';
+  db = process.env.TEST_DATABASE_URL;
 } else {
   //Development & production environemnt database
-  database = 'cayenne';
+  db = process.env.DATABASE_URL;
 }
 
 exports.create = (product, cb) => {
   const response = [];
-  const client = new Client({
-    user: 'christopher.gordon',
-    host: 'localhost',
-    database: database,
-    password: '',
-    port: 5432,
-  });
+  const client = new Client(db);
 
   client.connect();
 
@@ -35,19 +29,13 @@ exports.create = (product, cb) => {
       console.log(err.stack);
       cb(`Failed to add product: ${product.name}`, null);
     } else {
-      cb(null, 'successfully added product', res.rows[0].product_id);
+      cb(null, res.rows[0].product_id);
     }
   });
 };
 
 exports.fetchAll = (cb) => {
-  const client = new Client({
-    user: 'christopher.gordon',
-    host: 'localhost',
-    database: database,
-    password: '',
-    port: 5432,
-  });
+  const client = new Client(db);
   
   client.connect();
 
@@ -62,13 +50,7 @@ exports.fetchAll = (cb) => {
 };
 
 exports.fetch = (searchTerm, cb) => {
-  const client = new Client({
-    user: 'christopher.gordon',
-    host: 'localhost',
-    database: database,
-    password: '',
-    port: 5432,
-  });
+  const client = new Client(db);
 
   client.connect();
 
@@ -101,37 +83,33 @@ exports.fetch = (searchTerm, cb) => {
 };
 
 exports.update = (productId, product, cb) => {
-  const client = new Client({
-    connectionString: connectionString
-  });
+  const client = new Client(db);
 
   client.connect();
 
   const query = {
-    text: 'UPDATE products SET name=$2, description=$3, price=$4 WHERE id=$1',
+    text: 'UPDATE products SET name=$2, description=$3, price=$4 WHERE product_id=$1',
     values: [productId, product.name, product.description, product.price]
   };
 
   client.query(query, (err) => {
     if (err) {
       console.log(err.stack);
-      cb(`Failed To Update Product ${product.name}`, null);
+      cb(`Failed To Update Product:'${product.name}'`);
     } else {
-      cb(null, 'Product successfully updated');
+      cb(null);
     }
   });
 };
 
-exports.remove = (product, cb) => {
-  const client = new Client({
-    connectionString: connectionString
-  });
+exports.remove = (productId, cb) => {
+  const client = new Client(db);
 
   client.connect();
 
   const query = {
-    text: 'DELETE FROM products WHERE id=$1',
-    values: [product.id]
+    text: 'DELETE FROM products WHERE product_id=$1',
+    values: [productId]
   };
 
   client.query(query, (err) => {
@@ -139,7 +117,7 @@ exports.remove = (product, cb) => {
       console.log(err.stack);
       cb(`Failed to delete product (id: ${product.id}), please make sure you're using the correct ID`, null);
     } else {
-      cb(null, 'Successfully deleted product');
+      cb(null);
     }
   });
 };

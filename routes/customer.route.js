@@ -1,36 +1,17 @@
 var express = require('express');
 var services = require('./../services');
 var customerRoutes = express.Router();
+var controller = require('./../controllers');
 
-customerRoutes.get('/', (req, res) => {
-  res.json({message: 'successful get - customer'});
-});
+customerRoutes.post('/', controller.customer.create);
 
-customerRoutes.get('/:id', (req, res) => {
-  res.json({message: 'successful get - customer/id'});
-});
+customerRoutes.get('/', controller.customer.fetchAll);
 
-customerRoutes.post('/', function (req, res) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({
-    customername: req.body.customername
-  }));
-});
+customerRoutes.get('/:searchTerm', controller.customer.fetch);
 
-customerRoutes.put('/:id', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({
-    customername: req.body.customername
-  }));
-});
+customerRoutes.patch('/:id', controller.customer.update);
 
-customerRoutes.delete('/:id', (req, res) => {
-  res.json({message: 'successful delete'});
-});
-
-customerRoutes.patch('/:id', (req, res) => {
-  res.json({message: 'successful patch'});
-});
+customerRoutes.delete('/:id', controller.customer.remove);
 
 module.exports = () => {
   return customerRoutes;
