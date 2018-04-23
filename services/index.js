@@ -1,9 +1,9 @@
 'use-strict';
 
-const basket = require('./basketService');
-const product = require('./productService');
+const customerService = require('./customer.service');
+const productService = require('./product.service');
 
 module.exports = {
-  basketService: basket,
-  productService: product
+  customer: customerService,
+  productService: productService
 };
