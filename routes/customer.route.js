@@ -5,7 +5,7 @@ var controller = require('./../controllers');
 
 customerRoutes.post('/', controller.customer.create);
 
-customerRoutes.get('/', controller.customer.fetchAll);
+customerRoutes.get('/', controller.customer.fetch);
 
 customerRoutes.get('/:searchTerm', controller.customer.fetch);
 
