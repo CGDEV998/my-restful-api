@@ -5,9 +5,9 @@ var controller = require('./../controllers');
 
 productRoutes.post('/', controller.product.create);
 
-productRoutes.get('/', controller.product.fetchAll);
+productRoutes.get('/', controller.product.fetch);
 
-productRoutes.get('/:searchTerm', controller.product.fetch);
+productRoutes.get('/:id', controller.product.fetch);
 
 productRoutes.patch('/:id', controller.product.update);
 

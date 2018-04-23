@@ -3,57 +3,29 @@
 const express = require('express');
 const services = require('./../services');
 
-
-exports.create = (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  services.productService.create(req.body, (err, newProductId) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    } else {
-      services.productService.fetch(newProductId, (err, response) => {
-        if (err) {
-          res.status(500).json({ error: err });
-        } else {
-          res.status(200).json({ createdProduct: response[0] });
-        }
-      });
-    }
-  });
-};
-
-exports.fetchAll = (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  services.productService.fetchAll((err, response) => {
-    if (err) {
-      res.status(500).json({ error: err });
-    } else {
-      res.status(200).json({ products: response });
-    }
-  });
-};
-
 exports.fetch = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  services.productService.fetch(req.params.searchTerm, (err, response) => {
+  
+  services.productService.fetch(req.query, req.params, (err, response) => {
     if (err) {
-      res.status(500).json({ error: err });
+      res.status(err.code).json({ error: err.message });
     } else {
-      res.status(200).json({ products: response });
+      res.status(response.code).json({ products: response.products });
     }
   });
 };
 
 exports.update = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  services.productService.update(req.params.id, req.body, (err) => {
+  services.productService.update(req.params.id, req.body, (err, updateResponse) => {
     if (err) {
-      res.status(500).json({ error: err });
+      res.status(err.code).json({ error: err.message });
     } else {
-      services.productService.fetch(req.params.id, (err, response) => {
+      services.productService.fetch(req.query, req.params, (err, fetchResponse) => {
         if (err) {
-          res.status(500).json({ error: err });
+          res.status(err.code).json({ error: err.message });
         } else {
-          res.status(200).json({ updatedProduct: response[0] });
+          res.status(updateResponse.code).json({ updatedProduct: fetchResponse.products[0] });
         }
       });
     }
@@ -62,15 +34,32 @@ exports.update = (req, res) => {
 
 exports.remove = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  services.productService.fetch(req.params.id, (err, response) => {
+  services.productService.fetch(req.query, req.params, (err, fetchResponse) => {
     if (err) {
-      res.status(500).json({ error: err });
+      res.status(err.code).json({ error: err.message });
     } else {
-      services.productService.remove(req.params.id, (err) => {
+      services.productService.remove(req.params.id, (err, removeResponse) => {
         if (err) {
-          res.status(500).json({ error: err});
+          res.status(err.code).json({ error: err.message });
         } else {
-          res.status(200).json({ deletedProduct: response[0] });
+          res.status(removeResponse.code).json({ deletedProduct: fetchResponse.products[0] });
+        }
+      });
+    }
+  });
+};
+
+exports.create = (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  services.productService.create(req.body, (err, createResponse) => {
+    if (err) {
+      res.status(err.code).json({ error: err.message });
+    } else {
+      services.productService.fetch(req.query, { id: createResponse.createdProductId }, (err, fetchResponse) => {
+        if (err) {
+          res.status(err.code).json({ error: err.message });
+        } else {
+          res.status(createResponse.code).json({ createdProduct: fetchResponse.products[0] });
         }
       });
     }
