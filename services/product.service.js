@@ -56,13 +56,14 @@ exports.create = (product, cb) => {
 
 exports.fetch = (queries, params, cb) => {
   const client = new Client(db);
-  const noQueriesOrParamsCheck = Object.keys(queries).length + Object.keys(params).length;
+  const numOfQueries = Object.keys(queries).length;
+  const numOfParams = Object.keys(params).length;
 
   client.connect();
 
-  var dbQuery;  
+  var dbQuery;
 
-  if(noQueriesOrParamsCheck === 0) {
+  if(numOfQueries + numOfParams === 0) {
     dbQuery = 'SELECT * FROM products';
   } else if (params.id) {
     if(isNaN(params.id)) {
@@ -86,6 +87,7 @@ exports.fetch = (queries, params, cb) => {
       code: 400,
       message: 'Invalid product search'
     }, null);
+    return;
   }
 
   client.query(dbQuery, (err, res) => {
