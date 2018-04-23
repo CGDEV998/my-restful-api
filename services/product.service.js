@@ -19,6 +19,20 @@ exports.create = (product, cb) => {
 
   client.connect();
 
+  if(Object.keys(product).length === 0) {
+    cb({
+      code: 400,
+      message: 'Please provide a valid product creation object'
+    }, null);
+    return;
+  } else if(!product.name || !product.description || !product.price) {
+    cb({
+      code: 400,
+      message: 'You have provided an invlaid product creation object. Please use properties: name, description, price'
+    }, null);
+    return;
+  }
+
   const query = {
     text: 'INSERT INTO products(name, description, price) VALUES($1, $2, $3) returning product_id',
     values: [product.name, product.description, product.price]
@@ -27,57 +41,70 @@ exports.create = (product, cb) => {
   client.query(query, (err, res) => {
     if (err) {
       console.log(err.stack);
-      cb(`Failed to add product: ${product.name}`, null);
+      cb({
+        code: 500,
+        message: `Failed to add product: ${product.name}`
+      }, null);
     } else {
-      cb(null, res.rows[0].product_id);
+      cb(null, {
+        code: 201,
+        createdProductId: res.rows[0].product_id
+      });
     }
   });
 };
 
-exports.fetchAll = (cb) => {
+exports.fetch = (queries, params, cb) => {
   const client = new Client(db);
-  
+  const noQueriesOrParamsCheck = Object.keys(queries).length + Object.keys(params).length;
+
   client.connect();
 
-  client.query('SELECT * FROM products', (err, res) => {
-    if (err) {
-      console.log(err.stack);
-      cb('Currently no products avaliable', null);
-    } else {
-      cb(null, res.rows);
+  var dbQuery;  
+
+  if(noQueriesOrParamsCheck === 0) {
+    dbQuery = 'SELECT * FROM products';
+  } else if (params.id) {
+    if(isNaN(params.id)) {
+      cb({
+        code: 400,
+        message: 'Please provide a valid product id'
+      }, null);
+      return;
     }
-  });
-};
-
-exports.fetch = (searchTerm, cb) => {
-  const client = new Client(db);
-
-  client.connect();
-
-  var query;
-
-  if (isNaN(searchTerm)) {
-    query = {
-      text: 'SELECT * FROM products WHERE name=$1',
-      values: [searchTerm]
-    };
-  } else if (!isNaN(searchTerm)) {
-    query = {
+    dbQuery = {
       text: 'SELECT * FROM products WHERE product_id=$1',
-      values: [searchTerm]
+      values: [params.id]
+    };
+  } else if(queries.name) {
+    dbQuery = {
+      text: 'SELECT * FROM products WHERE name=$1',
+      values: [queries.name]
     };
   } else {
-    cb('Please provide a valid product Id or name to fetch', null);
+    cb({
+      code: 400,
+      message: 'Invalid product search'
+    }, null);
   }
 
-  client.query(query, (err, res) => {
+  client.query(dbQuery, (err, res) => {
     if (err) {
       console.log(err.stack);
-      cb('Something went wrong, please try again', null);
+      cb({
+        code: 500,
+        message: 'Failed to query database'
+      }, null);
     } else if (res.rows.length === 0) {
-      cb('Could not find that product, please ensure you entered the correct id or name', null);
+      cb({
+        code: 404,
+        message: 'Could not find that product, please ensure you entered the correct id or name'
+      }, null);
     } else {
-      cb(null, res.rows);
+      cb(null, {
+        code: 200,
+        products: res.rows
+      });
     }
   });
 };
@@ -87,6 +114,26 @@ exports.update = (productId, product, cb) => {
 
   client.connect();
 
+  if(isNaN(productId)) {
+    cb({
+      code: 400,
+      message: 'Please provide a valid product id to update'
+    }, null);
+    return;
+  } else if(Object.keys(product).length === 0) {
+    cb({
+      code: 400,
+      message: 'Please provide a valid product update object'
+    }, null);
+    return;
+  } else if(!product.name || !product.description || !product.price) {
+    cb({
+      code: 400,
+      message: 'You have provided an invlaid product update object. Please use properties: name, description, price'
+    }, null);
+    return;
+  }
+
   const query = {
     text: 'UPDATE products SET name=$2, description=$3, price=$4 WHERE product_id=$1',
     values: [productId, product.name, product.description, product.price]
@@ -95,9 +142,14 @@ exports.update = (productId, product, cb) => {
   client.query(query, (err) => {
     if (err) {
       console.log(err.stack);
-      cb(`Failed To Update Product:'${product.name}'`);
+      cb({
+        code: 500,
+        message: `Failed To Update: product name '${product.name}'`
+      });
     } else {
-      cb(null);
+      cb(null, {
+        code: 200,
+      });
     }
   });
 };
@@ -115,9 +167,14 @@ exports.remove = (productId, cb) => {
   client.query(query, (err) => {
     if (err) {
       console.log(err.stack);
-      cb(`Failed to delete product (id: ${product.id}), please make sure you're using the correct ID`, null);
+      cb({
+         code: 500,
+         message: `Failed to delete product (id: ${product.id})`
+      }, null);
     } else {
-      cb(null);
+      cb(null, {
+        code: 410,
+      });
     }
   });
 };
