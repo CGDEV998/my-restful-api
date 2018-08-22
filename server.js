@@ -27,7 +27,8 @@ app.listen(port, (err) => {
   console.log('Running on port: ' + port);
 });
 
-if (process.env.NODE_ENV !== 'test') {
+NODE_ENV = 'development';
+if (NODE_ENV !== 'test') {
   app.use(logger('dev'));
 }
 

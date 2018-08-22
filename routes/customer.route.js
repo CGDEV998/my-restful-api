@@ -3,15 +3,15 @@ var services = require('./../services');
 var customerRoutes = express.Router();
 var controller = require('./../controllers');
 
-customerRoutes.post('/', controller.customer.create);
+customerRoutes.post('/', controller.customers.create);
 
-customerRoutes.get('/', controller.customer.fetch);
+customerRoutes.get('/', controller.customers.fetch);
 
-customerRoutes.get('/:searchTerm', controller.customer.fetch);
+customerRoutes.get('/:id', controller.customers.fetch);
 
-customerRoutes.patch('/:id', controller.customer.update);
+customerRoutes.patch('/:id', controller.customers.update);
 
-customerRoutes.delete('/:id', controller.customer.remove);
+customerRoutes.delete('/:id', controller.customers.remove);
 
 module.exports = () => {
   return customerRoutes;

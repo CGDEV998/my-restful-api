@@ -3,15 +3,15 @@ var services = require('./../services');
 var productRoutes = express.Router();
 var controller = require('./../controllers');
 
-productRoutes.post('/', controller.product.create);
+productRoutes.post('/', controller.products.create);
 
-productRoutes.get('/', controller.product.fetch);
+productRoutes.get('/', controller.products.fetch);
 
-productRoutes.get('/:id', controller.product.fetch);
+productRoutes.get('/:id', controller.products.fetch);
 
-productRoutes.patch('/:id', controller.product.update);
+productRoutes.patch('/:id', controller.products.update);
 
-productRoutes.delete('/:id', controller.product.remove);
+productRoutes.delete('/:id', controller.products.remove);
 
 module.exports = () => {
   return productRoutes;
