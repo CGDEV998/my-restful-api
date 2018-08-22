@@ -5,8 +5,7 @@ const services = require('./../services');
 
 exports.fetch = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  
-  services.productService.fetch(req.query, req.params, (err, response) => {
+  services.products.fetch(req.query, req.params, (err, response) => {
     if (err) {
       res.status(err.code).json({ error: err.message });
     } else {
@@ -17,11 +16,11 @@ exports.fetch = (req, res) => {
 
 exports.update = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  services.productService.update(req.params.id, req.body, (err, updateResponse) => {
+  services.products.update(req.params.id, req.body, (err, updateResponse) => {
     if (err) {
       res.status(err.code).json({ error: err.message });
     } else {
-      services.productService.fetch(req.query, req.params, (err, fetchResponse) => {
+      services.products.fetch(req.query, req.params, (err, fetchResponse) => {
         if (err) {
           res.status(err.code).json({ error: err.message });
         } else {
@@ -34,11 +33,11 @@ exports.update = (req, res) => {
 
 exports.remove = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  services.productService.fetch(req.query, req.params, (err, fetchResponse) => {
+  services.products.fetch(req.query, req.params, (err, fetchResponse) => {
     if (err) {
       res.status(err.code).json({ error: err.message });
     } else {
-      services.productService.remove(req.params.id, (err, removeResponse) => {
+      services.products.remove(req.params.id, (err, removeResponse) => {
         if (err) {
           res.status(err.code).json({ error: err.message });
         } else {
@@ -51,11 +50,11 @@ exports.remove = (req, res) => {
 
 exports.create = (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  services.productService.create(req.body, (err, createResponse) => {
+  services.products.create(req.body, (err, createResponse) => {
     if (err) {
       res.status(err.code).json({ error: err.message });
     } else {
-      services.productService.fetch(req.query, { id: createResponse.createdProductId }, (err, fetchResponse) => {
+      services.products.fetch(req.query, { id: createResponse.createdProductId }, (err, fetchResponse) => {
         if (err) {
           res.status(err.code).json({ error: err.message });
         } else {

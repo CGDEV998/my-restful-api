@@ -1,5 +1,4 @@
 'use-strict';
-process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -11,12 +10,12 @@ const util = require('./utils');
 
 chai.use(chaiHttp);
 
-describe('Product API Routes', function() {
+describe.only('Product API Routes', function() {
 
   beforeEach(
     () => knex.migrate.rollback()
-    .then(() => knex.migrate.latest())
-    .then(() => knex.seed.run())
+    .then(knex.migrate.latest())
+    .then(knex.seed.run())
   );
 
   afterEach(
@@ -217,7 +216,7 @@ describe('Product API Routes', function() {
         .end(function(err, res) {
           util.standardErrorResponseObject400;
           res.body.should.deep.equal({
-            error: 'You have provided an invlaid product update object. Please use properties: name, description, price'
+            error: 'You have provided an invalid product update object. Please use properties: name, description, price'
           });
           done();
         });
@@ -316,7 +315,7 @@ describe('Product API Routes', function() {
         .end(function(err, res) {
           util.standardErrorResponseObject400;
           res.body.should.deep.equal({
-            error: 'You have provided an invlaid product creation object. Please use properties: name, description, price'
+            error: 'You have provided an invalid product creation object. Please use properties: name, description, price'
           });
           done();
         });

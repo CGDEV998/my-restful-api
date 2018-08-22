@@ -28,13 +28,13 @@ exports.create = (product, cb) => {
   } else if(!product.name || !product.description || !product.price) {
     cb({
       code: 400,
-      message: 'You have provided an invlaid product creation object. Please use properties: name, description, price'
+      message: 'You have provided an invalid product creation object. Please use properties: name, description, price'
     }, null);
     return;
   }
 
   const query = {
-    text: 'INSERT INTO products(name, description, price) VALUES($1, $2, $3) returning product_id',
+    text: 'INSERT INTO products(name, description, price) VALUES($1, $2, $3) RETURNING product_id',
     values: [product.name, product.description, product.price]
   };
 
@@ -129,7 +129,7 @@ exports.update = (productId, product, cb) => {
   } else if(!product.name || !product.description || !product.price) {
     cb({
       code: 400,
-      message: 'You have provided an invlaid product update object. Please use properties: name, description, price'
+      message: 'You have provided an invalid product update object. Please use properties: name, description, price'
     }, null);
     return;
   }

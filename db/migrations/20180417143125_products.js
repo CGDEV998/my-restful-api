@@ -1,6 +1,6 @@
 
 exports.up = function(knex, Promise) {
-  return knex.schema.createTable('products',
+  return knex.schema.createTableIfNotExists('products',
    function(table) {
     table.increments('product_id').primary();
     table.string('name').notNull();

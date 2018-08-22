@@ -4,7 +4,7 @@
   "description": "simple restful api",
   "main": "server.js",
   "scripts": {
-    "test": "export PORT=3007 && mocha"
+    "test": "export PORT=3007 && NODE_ENV=test mocha"
   },
   "repository": {
     "type": "git",
@@ -23,9 +23,9 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
-    "ejs": "^2.5.8",
+    "ejs": "^2.5.9",
     "gulp": "^3.9.1",
-    "mocha": "^5.1.0",
+    "mocha": "^5.1.1",
     "morgan": "^1.9.0",
     "pg": "^4.5.7",
     "pg-query": "^0.11.0"
