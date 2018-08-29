@@ -1,8 +1,6 @@
 'use-strict';
 
-const express = require('express');
 const { Client } = require('pg');
-const router = express.Router();
 var db;
 
 if(process.env.NODE_ENV === 'test') {
