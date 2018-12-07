@@ -1,9 +1,7 @@
 'use-strict';
 
-const express = require('express');
 const { Client } = require('pg');
-const router = express.Router();
-var db;
+let db;
 
 if(process.env.NODE_ENV === 'test') {
   // Test environemnt database
@@ -61,7 +59,7 @@ exports.fetch = (queries, params, cb) => {
 
   client.connect();
 
-  var dbQuery;
+  let dbQuery;
 
   if(numOfQueries + numOfParams === 0) {
     dbQuery = 'SELECT * FROM products';
